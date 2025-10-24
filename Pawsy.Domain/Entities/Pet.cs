@@ -14,8 +14,8 @@ namespace Pawsy.Domain.Entities
         public int Age { get; private set; }
         public string? Gender { get; private set; }
         public string? ImageUrl { get; set; }
-        public DateTime? CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
+        public DateTime? Created_Date { get; set; }
+        public DateTime? Updated_Date { get; set; }
         public int CategoryId { get; private set; }
         public Category Category { get; private set; } = null!;
     }

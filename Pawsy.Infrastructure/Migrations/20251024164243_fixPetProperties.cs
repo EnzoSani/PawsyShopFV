@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Pawsy.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddPetAndCategoryToDb : Migration
+    public partial class fixPetProperties : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,8 +36,8 @@ namespace Pawsy.Infrastructure.Migrations
                     Age = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Updated_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

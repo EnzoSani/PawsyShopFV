@@ -12,8 +12,8 @@ using Pawsy.Infrastructure.Data;
 namespace Pawsy.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251024003759_AddPetAndCategoryToDb")]
-    partial class AddPetAndCategoryToDb
+    [Migration("20251024164408_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,7 +59,7 @@ namespace Pawsy.Infrastructure.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("CreatedDate")
+                    b.Property<DateTime?>("Created_Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -75,7 +75,7 @@ namespace Pawsy.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdatedDate")
+                    b.Property<DateTime?>("Updated_Date")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
