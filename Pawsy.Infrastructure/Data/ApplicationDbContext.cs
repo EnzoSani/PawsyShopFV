@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pawsy.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace Pawsy.Infrastructure.Data
         {
 
         }
-        
+
+        public DbSet<Pet> Pets { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
     }
 }
