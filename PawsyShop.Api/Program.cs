@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Pawsy.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,20 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
+
+// Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "PawsyShop API",
+        Version = "v1",
+        Description = "API de ejemplo para PawsyShop"
+    });
+
+    
+});
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -25,5 +40,21 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "PawsyShop API v1");
+        //c.RoutePrefix = string.Empty; // <-- hace que Swagger UI esté en '/'
+        c.RoutePrefix = "swagger"; // <-- si preferís en /swagger
+    });
+}
+else
+{
+    // Si querés habilitarlo también en producción, mové UseSwagger + UseSwaggerUI fuera del if
+}
+
 
 app.Run();
