@@ -22,38 +22,53 @@ namespace Pawsy.Infrastructure.Data
         {
             //    base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Category>().HasData(
+                new Category
+                {
+                    Id = 1,
+                    Name = "Perros",
+                    Description = "Mascotas caninas"
+                },
+                new Category
+                {
+                    Id = 2,
+                    Name = "Gatos",
+                    Description = "Mascotas felinas"
+                }
+            );
+
             modelBuilder.Entity<Pet>().HasData(
                 new Pet
                 {
                     Id = 1,
-                    Name = "pupo",
-                    Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                    Name = "Pupo",
+                    Description = "Fusce tincidunt maximus leo, sed scelerisque massa auctor sit amet.",
                     ImageUrl = "https://placehold.co/600x400",
-                    Gender = "asdas",
-                    Age = 2
-
+                    Gender = "Macho",
+                    Age = 2,
+                    CategoryId = 1
                 },
-                    new Pet
-                    {
-                        Id = 2,
-                        Name = "pipo",
-                        Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
-                        ImageUrl = "https://placehold.co/600x400",
-                        Gender = "asdas",
-                        Age = 5
-
-
-                        
-                    },
-                    new Pet
-                    {
-                        Id = 3,
-                        Name = "tito",
-                        Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
-                        ImageUrl = "https://placehold.co/600x400",
-                        Gender = "asdas",
-                        Age = 7
-                    });
+                new Pet
+                {
+                    Id = 2,
+                    Name = "Pipo",
+                    Description = "Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                    ImageUrl = "https://placehold.co/600x400",
+                    Gender = "Macho",
+                    Age = 5,
+                    CategoryId = 1
+                },
+                new Pet
+                {
+                    Id = 3,
+                    Name = "Tito",
+                    Description = "Fusce tincidunt maximus leo, sed scelerisque massa auctor sit amet.",
+                    ImageUrl = "https://placehold.co/600x400",
+                    Gender = "Macho",
+                    Age = 7,
+                    CategoryId = 2
+                }
+            );
         }
 
     }
