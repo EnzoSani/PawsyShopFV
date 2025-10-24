@@ -11,12 +11,12 @@ namespace Pawsy.Domain.Entities
         public int Id { get; set; }
         public required string Name { get; set; }
         public string? Description { get; set; }
-        public int Age { get; private set; }
-        public string? Gender { get; private set; }
+        public int Age { get;  set; }
+        public string? Gender { get;  set; }
         public string? ImageUrl { get; set; }
         public DateTime? Created_Date { get; set; }
         public DateTime? Updated_Date { get; set; }
-        public int CategoryId { get; private set; }
-        public Category Category { get; private set; } = null!;
+        public int CategoryId { get;  set; }
+        public Category Category { get;  set; } = null!;
     }
 }
