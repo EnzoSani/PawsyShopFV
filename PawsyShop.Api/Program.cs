@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Pawsy.Application.Common.Interfaces;
 using Pawsy.Infrastructure.Data;
+using Pawsy.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddControllers();
 
