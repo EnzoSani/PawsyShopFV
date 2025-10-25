@@ -19,6 +19,7 @@
   </ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Pawsy.Application\Pawsy.Application.csproj" />
 		<ProjectReference Include="..\Pawsy.Domain\Pawsy.Domain.csproj" />
 	</ItemGroup>
 
