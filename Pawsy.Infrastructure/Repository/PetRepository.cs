@@ -1,4 +1,5 @@
 ﻿using Pawsy.Application.Common.Interfaces;
+using Pawsy.Domain.Entities;
 using Pawsy.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -8,19 +9,17 @@ using System.Threading.Tasks;
 
 namespace Pawsy.Infrastructure.Repository
 {
-    public class UnitOfWork : IUnitOfWork
+    public class PetRepository : Repository<Pet>, IPetRepository
     {
-        private readonly ApplicationDbContext _db;
-        public IPetRepository Pet { get; private set; }
-        public UnitOfWork(ApplicationDbContext db)
+        private  readonly ApplicationDbContext _db;
+        public PetRepository(ApplicationDbContext db) : base(db)
         {
-            Pet = new PetRepository(_db);
             _db = db;
         }
 
-        public void Save()
+        public void Update(Pet entity)
         {
-            _db.SaveChanges();
+            _db.Pets.Update(entity);
         }
     }
 }
