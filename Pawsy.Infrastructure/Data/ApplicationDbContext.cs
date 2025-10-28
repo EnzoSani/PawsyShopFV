@@ -15,61 +15,42 @@ namespace Pawsy.Infrastructure.Data
 
         }
 
+        public DbSet<Product> Products { get; set; }
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Category> Categories { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            //    base.OnModelCreating(modelBuilder);
+//        protected override void OnModelCreating(ModelBuilder modelBuilder)
+//        {
+//            //    base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Category>().HasData(
-                new Category
-                {
-                    Id = 1,
-                    Name = "Perros",
-                    Description = "Mascotas caninas"
-                },
-                new Category
-                {
-                    Id = 2,
-                    Name = "Gatos",
-                    Description = "Mascotas felinas"
-                }
-            );
+//            modelBuilder.Entity<Category>().HasData(
+//    new Category { Id = 1, Name = "Comida" },
+//    new Category { Id = 2, Name = "Juguetes" },
+//    new Category { Id = 3, Name = "Accesorios" }
+//);
 
-            modelBuilder.Entity<Pet>().HasData(
-                new Pet
-                {
-                    Id = 1,
-                    Name = "Pupo",
-                    Description = "Fusce tincidunt maximus leo, sed scelerisque massa auctor sit amet.",
-                    ImageUrl = "https://placehold.co/600x400",
-                    Gender = "Macho",
-                    Age = 2,
-                    CategoryId = 1
-                },
-                new Pet
-                {
-                    Id = 2,
-                    Name = "Pipo",
-                    Description = "Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
-                    ImageUrl = "https://placehold.co/600x400",
-                    Gender = "Macho",
-                    Age = 5,
-                    CategoryId = 1
-                },
-                new Pet
-                {
-                    Id = 3,
-                    Name = "Tito",
-                    Description = "Fusce tincidunt maximus leo, sed scelerisque massa auctor sit amet.",
-                    ImageUrl = "https://placehold.co/600x400",
-                    Gender = "Macho",
-                    Age = 7,
-                    CategoryId = 2
-                }
-            );
-        }
+//            modelBuilder.Entity<Pet>().HasData(
+//                new Pet { Id = 1, Name = "Perro", ImageUrl = "/images/dog.png" },
+//                new Pet { Id = 2, Name = "Gato", ImageUrl = "/images/cat.png" },
+//                new Pet { Id = 3, Name = "Conejo", ImageUrl = "/images/rabbit.png" }
+//            );
+
+//            modelBuilder.Entity<Product>().HasData(
+//                new Product
+//                {
+//                    Id = 1,
+//                    Name = "Comida Premium Perro Adulto",
+//                    Description = "Alimento balanceado de alta calidad",
+//                    Price = 3500,
+//                    Stock = 25,
+//                    Brand = "Pedigree",
+//                    ImageUrl = "/images/products/pedigree.png",
+//                    CategoryId = 1,
+//                    PetId = 1,
+//                    IsFeatured = true
+//                }
+//            );
+//        }
 
     }
 }

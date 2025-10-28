@@ -16,7 +16,6 @@ namespace Pawsy.Domain.Entities
         public string? ImageUrl { get; set; }
         public DateTime? Created_Date { get; set; }
         public DateTime? Updated_Date { get; set; }
-        public int CategoryId { get;  set; }
-        public Category Category { get;  set; } = null!;
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }
