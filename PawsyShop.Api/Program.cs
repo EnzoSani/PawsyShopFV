@@ -18,6 +18,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 //Services
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IPetService, PetService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 //Automapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
