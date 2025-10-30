@@ -12,81 +12,40 @@ namespace Pawsy.Infrastructure.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly ApplicationDbContext _db;
+        protected readonly ApplicationDbContext _db;
         internal DbSet<T> dbSet;
+
         public Repository(ApplicationDbContext db)
         {
             _db = db;
             dbSet = _db.Set<T>();
         }
 
-        public void Add(T entity)
+        public async Task<IEnumerable<T>> GetAllAsync(string? includeProperties = null)
         {
-            dbSet.Add(entity);
+            IQueryable<T> query = dbSet;
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                    query = query.Include(includeProp);
+            }
+            return await query.ToListAsync();
         }
 
-        public bool Any(Expression<Func<T, bool>> filter)
+        public async Task<T?> GetByIdAsync(int id, string? includeProperties = null)
         {
-            return dbSet.Any(filter);
+            IQueryable<T> query = dbSet;
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                    query = query.Include(includeProp);
+            }
+            return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
         }
 
-        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
-        {
-            IQueryable<T> query;
-            if (tracked)
-            {
-                query = dbSet;
-            }
-            else
-            {
-                query = dbSet.AsNoTracking();
-            }
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-            if (!string.IsNullOrEmpty(includeProperties))
-            {
-                //Villa,VillaNumber -- case sensitive
-                foreach (var includeProp in includeProperties
-                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includeProp.Trim());
-                }
-            }
-            return query.FirstOrDefault();
-        }
-
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, bool tracked = false)
-        {
-            IQueryable<T> query;
-            if (tracked)
-            {
-                query = dbSet;
-            }
-            else
-            {
-                query = dbSet.AsNoTracking();
-            }
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-            if (!string.IsNullOrEmpty(includeProperties))
-            {
-                foreach (var includeProp in includeProperties
-                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includeProp.Trim());
-                }
-            }
-            return query.ToList();
-        }
-
-        public void Remove(T entity)
-        {
-            dbSet.Remove(entity);
-        }
+        public async Task AddAsync(T entity) => await dbSet.AddAsync(entity);
+        public void Update(T entity) => dbSet.Update(entity);
+        public void Remove(T entity) => dbSet.Remove(entity);
 
     }
 }

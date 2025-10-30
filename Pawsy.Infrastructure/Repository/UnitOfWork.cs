@@ -1,4 +1,5 @@
 ﻿using Pawsy.Application.Common.Interfaces;
+using Pawsy.Domain.Entities;
 using Pawsy.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,17 @@ namespace Pawsy.Infrastructure.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _db;
+        public ICategoryRepository Category { get; private set; }
         public IPetRepository Pet { get; private set; }
+        public IProductRepository Product { get; private set; }
         public UnitOfWork(ApplicationDbContext db)
         {
-            Pet = new PetRepository(_db);
+            Category = new CategoryRepository(db);
+            Pet = new PetRepository(db);
+            Product = new ProductRepository(db);
             _db = db;
         }
 
-        public void Save()
-        {
-            _db.SaveChanges();
-        }
+        public async Task SaveAsync() => await _db.SaveChangesAsync();
     }
 }

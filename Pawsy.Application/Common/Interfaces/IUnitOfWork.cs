@@ -8,7 +8,9 @@ namespace Pawsy.Application.Common.Interfaces
 {
     public interface IUnitOfWork
     {
+        IProductRepository Product { get; }
+        ICategoryRepository Category { get; }
         IPetRepository Pet { get; }
-        void Save();
+        Task SaveAsync();
     }
 }

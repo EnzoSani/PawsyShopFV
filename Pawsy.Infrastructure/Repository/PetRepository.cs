@@ -11,15 +11,15 @@ namespace Pawsy.Infrastructure.Repository
 {
     public class PetRepository : Repository<Pet>, IPetRepository
     {
-        private  readonly ApplicationDbContext _db;
+        //private  readonly ApplicationDbContext _db;
         public PetRepository(ApplicationDbContext db) : base(db)
         {
-            _db = db;
+            //_db = db;
         }
 
-        public void Update(Pet entity)
-        {
-            _db.Pets.Update(entity);
-        }
+        //public void Update(Pet entity)
+        //{
+        //    _db.Pets.Update(entity);
+        //}
     }
 }

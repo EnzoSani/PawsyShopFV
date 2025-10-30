@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Pawsy.Application.Common.Interfaces
 {
-    public interface IPetRepository : IRepository<Pet>
+    public interface ICategoryRepository : IRepository<Category> 
     {
-        //void Update(Pet entity);
+
     }
 }
