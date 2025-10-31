@@ -9,12 +9,11 @@ namespace PawsyShop.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private readonly ICategoryService _service;
-        private readonly ILogger<CategoryController> _logger;
-
-        public CategoryController(ICategoryService service, ILogger<CategoryController> logger)
+        private readonly IProductService _service;
+        private readonly ILogger<ProductController> _logger;
+        public ProductController(IProductService service, ILogger<ProductController> logger)
         {
             _service = service;
             _logger = logger;
@@ -26,15 +25,15 @@ namespace PawsyShop.Api.Controllers
             var response = new APIResponse();
             try
             {
-                var categories = await _service.GetAllAsync();
-                response.Result = categories;
+                var products = await _service.GetAllAsync();
+                response.Result = products;
                 response.StatusCode = HttpStatusCode.OK;
                 return Ok(response);
             }
             catch (Exception ex)
             {
 
-                _logger.LogError(ex, "An error occurred while fetching categories.");
+                _logger.LogError(ex, "An error occurred while fetching products.");
                 response.IsSuccess = false;
                 response.StatusCode = HttpStatusCode.InternalServerError;
                 response.ErrorMessages.Add(ex.Message);
@@ -48,23 +47,23 @@ namespace PawsyShop.Api.Controllers
             var response = new APIResponse();
             try
             {
-                var category = await _service.GetByIdAsync(id);
-                if(category == null)
+                var product = await _service.GetByIdAsync(id);
+                if (product == null)
                 {
                     response.IsSuccess = false;
                     response.StatusCode = HttpStatusCode.NotFound;
-                    response.ErrorMessages.Add("Category not found.");
+                    response.ErrorMessages.Add("Product not found.");
                     return NotFound(response);
                 }
 
-                response.Result = category;
+                response.Result = product;
                 response.StatusCode = HttpStatusCode.OK;
                 return Ok(response);
             }
             catch (Exception ex)
             {
 
-                _logger.LogError(ex, $"An error occurred while fetching category with ID {id}.");
+                _logger.LogError(ex, $"An error occurred while fetching product with ID {id}.");
                 response.IsSuccess = false;
                 response.StatusCode = HttpStatusCode.InternalServerError;
                 response.ErrorMessages.Add(ex.Message);
@@ -73,7 +72,7 @@ namespace PawsyShop.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<APIResponse>> Create([FromBody] CategoryDto dto)
+        public async Task<ActionResult<APIResponse>> Create([FromBody] ProductDto dto)
         {
             var response = new APIResponse();
             try
@@ -93,7 +92,7 @@ namespace PawsyShop.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while creating a new category.");
+                _logger.LogError(ex, "An error occurred while creating a new product.");
                 response.IsSuccess = false;
                 response.StatusCode = HttpStatusCode.InternalServerError;
                 response.ErrorMessages.Add(ex.Message);
@@ -104,12 +103,12 @@ namespace PawsyShop.Api.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<APIResponse>> Update(int id, CategoryDto dto)
+        public async Task<ActionResult<APIResponse>> Update(int id, [FromBody] ProductDto dto)
         {
             var response = new APIResponse();
             try
             {
-                if(dto == null || id != dto.Id)
+                if (dto == null || id != dto.Id)
                 {
                     response.IsSuccess = false;
                     response.StatusCode = HttpStatusCode.BadRequest;
@@ -117,11 +116,11 @@ namespace PawsyShop.Api.Controllers
                     return BadRequest(response);
                 }
                 var updated = await _service.UpdateAsync(dto);
-                if(!updated)
+                if (!updated)
                 {
                     response.IsSuccess = false;
                     response.StatusCode = HttpStatusCode.NotFound;
-                    response.ErrorMessages.Add("Category not found.");
+                    response.ErrorMessages.Add("Product not found.");
                     return NotFound(response);
                 }
                 response.StatusCode = HttpStatusCode.NoContent;
@@ -130,7 +129,7 @@ namespace PawsyShop.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"An error occurred while updating category with ID {id}.");
+                _logger.LogError(ex, $"An error occurred while updating product with ID {id}.");
                 response.IsSuccess = false;
                 response.StatusCode = HttpStatusCode.InternalServerError;
                 response.ErrorMessages.Add(ex.Message);
@@ -146,11 +145,11 @@ namespace PawsyShop.Api.Controllers
             try
             {
                 var deleted = await _service.DeleteAsync(id);
-                if(!deleted)
+                if (!deleted)
                 {
                     response.IsSuccess = false;
                     response.StatusCode = HttpStatusCode.NotFound;
-                    response.ErrorMessages.Add("Category not found.");
+                    response.ErrorMessages.Add("Pet not found.");
                     return NotFound(response);
                 }
                 response.StatusCode = HttpStatusCode.NoContent;
@@ -159,7 +158,7 @@ namespace PawsyShop.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"An error occurred while deleting category with ID {id}.");
+                _logger.LogError(ex, $"An error occurred while deleting pet with ID {id}.");
                 response.IsSuccess = false;
                 response.StatusCode = HttpStatusCode.InternalServerError;
                 response.ErrorMessages.Add(ex.Message);
