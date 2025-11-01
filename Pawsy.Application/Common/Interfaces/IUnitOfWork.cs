@@ -11,6 +11,7 @@ namespace Pawsy.Application.Common.Interfaces
         IProductRepository Product { get; }
         ICategoryRepository Category { get; }
         IPetRepository Pet { get; }
+        IOrderHeaderRepository OrderHeader { get; }
         Task SaveAsync();
     }
 }
