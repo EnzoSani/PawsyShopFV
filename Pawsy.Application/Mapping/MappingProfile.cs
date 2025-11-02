@@ -16,6 +16,7 @@ namespace Pawsy.Application.Mapping
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<Pet, PetDto>().ReverseMap();
             CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<OrderHeader, OrderHeaderDto>().ReverseMap();
         }
     }
 }
