@@ -20,6 +20,7 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IPetService, PetService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderHeaderService, OrderHeaderService>();
+builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 
 //Automapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));

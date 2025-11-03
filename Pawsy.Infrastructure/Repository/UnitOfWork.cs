@@ -16,12 +16,15 @@ namespace Pawsy.Infrastructure.Repository
         public IPetRepository Pet { get; private set; }
         public IProductRepository Product { get; private set; }
         public IOrderHeaderRepository OrderHeader { get; private set; }
+        public IOrderDetailRepository OrderDetail { get; private set; }
+
         public UnitOfWork(ApplicationDbContext db)
         {
             Category = new CategoryRepository(db);
             Pet = new PetRepository(db);
             Product = new ProductRepository(db);
             OrderHeader = new OrderHeaderRepository(db);
+            OrderDetail = new OrderDetailRepository(db);
             _db = db;
         }
 
