@@ -1,19 +1,23 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Pawsy.Application.Common.Interfaces;
 using Pawsy.Application.Mapping;
 using Pawsy.Application.Services.Implementation;
 using Pawsy.Application.Services.Interface;
+using Pawsy.Domain.Entities;
+using Pawsy.Infrastructure;
 using Pawsy.Infrastructure.Data;
+using Pawsy.Infrastructure.Identity;
 using Pawsy.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<ApplicationDbContext>(option =>
-option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddInfrastructure(builder.Configuration);
 
+// Unit Of Work
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 //Services
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -43,6 +47,9 @@ builder.Services.AddSwaggerGen(options =>
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -51,8 +58,13 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+// Run Identity Seeding
+await IdentitySeeder.SeedAsync(app.Services);
+
 app.UseHttpsRedirection();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
@@ -63,8 +75,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "PawsyShop API v1");
-        //c.RoutePrefix = string.Empty; // <-- hace que Swagger UI esté en '/'
-        c.RoutePrefix = "swagger"; // <-- si preferís en /swagger
+        
+        c.RoutePrefix = "swagger"; 
     });
 }
 else
