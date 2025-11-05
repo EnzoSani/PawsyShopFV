@@ -13,6 +13,7 @@ namespace Pawsy.Application.Common.Interfaces
         IPetRepository Pet { get; }
         IOrderHeaderRepository OrderHeader { get; }
         IOrderDetailRepository OrderDetail { get; }
+        IRefreshTokenRepository RefreshTokens { get; }
         Task SaveAsync();
     }
 }

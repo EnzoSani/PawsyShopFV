@@ -38,6 +38,7 @@ namespace Pawsy.Infrastructure.Identity
                 {
                     UserName = adminEmail,
                     Email = adminEmail,
+                    FullName = "Administrator",
                     Name = "Pawsy Admin",
                     EmailConfirmed = true
                 };

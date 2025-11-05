@@ -17,6 +17,7 @@ namespace Pawsy.Infrastructure.Repository
         public IProductRepository Product { get; private set; }
         public IOrderHeaderRepository OrderHeader { get; private set; }
         public IOrderDetailRepository OrderDetail { get; private set; }
+        public IRefreshTokenRepository RefreshTokens { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
@@ -25,6 +26,7 @@ namespace Pawsy.Infrastructure.Repository
             Product = new ProductRepository(db);
             OrderHeader = new OrderHeaderRepository(db);
             OrderDetail = new OrderDetailRepository(db);
+            RefreshTokens = new RefreshTokenRepository(db);
             _db = db;
         }
 
